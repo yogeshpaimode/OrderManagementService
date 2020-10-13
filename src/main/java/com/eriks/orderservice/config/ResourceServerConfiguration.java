@@ -12,7 +12,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .antMatchers("/oauth/token", "/oauth/authorize**","/getAllOrders").permitAll()
+            .antMatchers("/oauth/token", "/oauth/authorize**","/getAllOrders", "/h2-console/**").permitAll()
             //.antMatchers("/orders/**").authenticated();
             .antMatchers("/orders/**").access("hasRole('USER')");
     }

@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 @Table(name = "Order_Details")
@@ -13,12 +14,16 @@ public class Order {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(notes = "Order Number")
     private int id;
     
+    @ApiModelProperty(notes = "Order Status")
     private String status;
     
+    @ApiModelProperty(notes = "Order total price in EUR")
     private float totalPrice;
     
+    @ApiModelProperty(notes = "Order Placed Date")
     private Date orderDate;
 
     public Order() {
