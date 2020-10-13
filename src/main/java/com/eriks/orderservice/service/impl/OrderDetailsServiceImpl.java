@@ -1,31 +1,65 @@
 package com.eriks.orderservice.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.eriks.orderservice.dao.OrderDetailsRepo;
+import com.eriks.orderservice.dto.OrderDto;
+import com.eriks.orderservice.exception.ValidationException;
 import com.eriks.orderservice.model.Order;
+import com.eriks.orderservice.respository.jpa.OrderDetailsRepo;
 import com.eriks.orderservice.service.OrderDetailsService;
+import com.eriks.orderservice.util.OrderHelper;
 
 @Service
-public class OrderDetailsServiceImpl implements OrderDetailsService{
-    
+public class OrderDetailsServiceImpl implements OrderDetailsService {
+
     @Autowired
     private OrderDetailsRepo orderDetailsRepo;
-    
-    public List<Order> listAll() {
+
+    @Override
+    public List<Order> getOrdersList() {
         return orderDetailsRepo.findAll();
     }
-    
-    public void save(Order orderDetails) {
-        orderDetailsRepo.save(orderDetails);
+
+    @Override
+    public Order getOrderDetails(Long id) {
+        return orderDetailsRepo.getOrderById(id).get();
+        //return order.isPresent() ? order.get() : null;
     }
 
-    public Order get(Integer id) {
-        return orderDetailsRepo.findById(id).get();
+    @Override
+    public Order addOrder(OrderDto orderDto) throws ValidationException {
+        OrderHelper.validate(orderDto);
+        Order order = OrderHelper.mapToOrder(orderDto);
+        return orderDetailsRepo.save(order);
     }
-    
-    public void delete(Integer id) {
-        orderDetailsRepo.deleteById(id);
+
+    @Override
+    public Order updateOrderDetails(Long orderId, OrderDto orderDto) throws ValidationException {
+        OrderHelper.validate(orderDto);
+        Optional<Order> order = orderDetailsRepo.getOrderById(orderId);
+
+        if (!order.isPresent()) {
+            throw new ValidationException("Invalid Order Id !!");
+        }
+
+        Order orderDetails = order.get();
+        orderDetails.setStatus(orderDto.getStatus());
+        orderDetails.setTotalPrice(orderDto.getTotalPrice());
+        orderDetails.setOrderDate(orderDto.getOrderDate());
+        return orderDetailsRepo.save(orderDetails);
     }
+
+    @Override
+    public void deleteOrder(Long orderId) throws ValidationException {
+        Optional<Order> order = orderDetailsRepo.getOrderById(orderId);
+
+        if (!order.isPresent()) {
+            throw new ValidationException("Invalid Order Id !!");
+        }
+        orderDetailsRepo.deleteById(orderId);
+    }
+
+
 }

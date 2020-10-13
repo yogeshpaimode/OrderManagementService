@@ -1,38 +1,36 @@
-package com.eriks.orderservice.model;
+package com.eriks.orderservice.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 
-@Entity
-@Table(name = "Order_Details")
-public class Order {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class OrderDto {
     
     @Id
-    @SequenceGenerator(name = "ORDER_ID_GENERATOR", sequenceName = "ORDER_IDS", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORDER_ID_GENERATOR")
-    @Column(name = "ORDER_ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(notes = "Order Number")
     private Long id;
     
-    @Column(name = "STATUS", length = 15, nullable = false)
+    @ApiModelProperty(notes = "Order Status")
     private String status;
     
-    @Column(name = "TOTAL_PRICE", precision = 18, scale = 5, nullable = false)
+    @ApiModelProperty(notes = "Order total price in EUR")
     private BigDecimal totalPrice;
     
-    @Column(name = "ORDER_PLACED_TIMESTAMP")
+    @ApiModelProperty(notes = "Order Placed Date")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime orderDate;
 
-    public Order() {
+    public OrderDto() {
     }
 
-    public Order(Long id, String status, BigDecimal totalPrice, LocalDateTime orderDate) {
+    public OrderDto(Long id, String status, BigDecimal totalPrice, LocalDateTime orderDate) {
         this.id = id;
         this.status = status;
         this.totalPrice = totalPrice;
@@ -70,4 +68,5 @@ public class Order {
     public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
+
 }
