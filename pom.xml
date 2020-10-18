@@ -4,7 +4,7 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.eriks</groupId>
-	<artifactId>orderservice</artifactId>
+	<artifactId>ordermanagementservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>OrderManagementService</name>
 	<description>Spring Boot project for Order Management service</description>
