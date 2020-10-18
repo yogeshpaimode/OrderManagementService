@@ -30,11 +30,11 @@ LABEL maintainer="Yogesh Paimode"
 ADD VERSION .
 
 # Copy jar file from build step
-COPY --from=maven_build /home/app/target/orderservice*.jar orderservice.jar
+COPY --from=maven_build /home/app/target/ordermanagementservice*.jar ordermanagementservice.jar
 
 # Expose ports
 EXPOSE 8080
 
 # Entry point
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=default", "/orderservice.jar"]
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=default", "/ordermanagementservice.jar"]
 

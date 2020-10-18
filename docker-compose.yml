@@ -1,8 +1,8 @@
 version: '3.7'
 services:
-  orderservice:
-    container_name: orderservice
-    image: orderservice:0.0.1
+  ordermanagementservice:
+    container_name: ordermanagementservice
+    image: ordermanagementservice:0.0.1
     build: 
       context: .
       dockerfile: Dockerfile
