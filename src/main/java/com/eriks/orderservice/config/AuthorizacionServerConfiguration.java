@@ -14,18 +14,31 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
+/**
+ * The Class AuthorizacionServerConfiguration.
+ * 
+ * @author Yogesh Paimode
+ */
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizacionServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
+    /** The authentication manager. */
     @Autowired
     @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
 
+    /** The token store. */
     @Autowired
     private TokenStore tokenStore;
 
 
+    /**
+     * Configure.
+     *
+     * @param clients the clients
+     * @throws Exception the exception
+     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
@@ -36,16 +49,32 @@ public class AuthorizacionServerConfiguration extends AuthorizationServerConfigu
 
     }
 
+    /**
+     * Password encoder.
+     *
+     * @return the password encoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Configure.
+     *
+     * @param endpoints the endpoints
+     * @throws Exception the exception
+     */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(authenticationManager).tokenStore(tokenStore);
     }
 
+    /**
+     * Token store.
+     *
+     * @return the token store
+     */
     @Bean
     public TokenStore tokenStore() {
         return new InMemoryTokenStore();

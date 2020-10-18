@@ -12,26 +12,38 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * The Class SwaggerConfiguration.
+ * 
+ * @author Yogesh Paimode
+ */
 @EnableSwagger2
 @Configuration
 public class SwaggerConfiguration {
-    
+
+    /** The Constant ORDER_SERVICE_TAG. */
     public static final String ORDER_SERVICE_TAG = "Order Resource";
-    
+
+    /**
+     * Product api.
+     *
+     * @return the docket
+     */
     @Bean
     public Docket productApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
+        return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(RequestHandlerSelectors.basePackage("com.eriks.orderservice"))
-                .paths(regex("/api/orderservice.*"))
-                .build()
-                .tags(new Tag(ORDER_SERVICE_TAG, "Order Service Details"))
-                .apiInfo(apiInfo());
+                .paths(regex("/api/orderservice.*")).build()
+                .tags(new Tag(ORDER_SERVICE_TAG, "Order Service Details")).apiInfo(apiInfo());
     }
-    
+
+    /**
+     * Api info.
+     *
+     * @return the api info
+     */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("Order Service Application").version("1.0.0")
-                .contact(new Contact("Yogesh", "", "paimodeyogesh001@gmail.com"))
-                .build();
+                .contact(new Contact("Yogesh", "", "paimodeyogesh001@gmail.com")).build();
     }
 }

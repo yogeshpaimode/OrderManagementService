@@ -1,6 +1,7 @@
 package com.eriks.orderservice.service.impl;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,23 +12,48 @@ import com.eriks.orderservice.respository.jpa.OrderDetailsRepo;
 import com.eriks.orderservice.service.OrderDetailsService;
 import com.eriks.orderservice.util.OrderHelper;
 
+/**
+ * The Class OrderDetailsServiceImpl.
+ * 
+ * @author Yogesh Paimode
+ */
 @Service
 public class OrderDetailsServiceImpl implements OrderDetailsService {
 
+    /** The order details repo. */
     @Autowired
     private OrderDetailsRepo orderDetailsRepo;
 
+    /**
+     * Gets the orders list.
+     *
+     * @return the orders list
+     */
     @Override
     public List<Order> getOrdersList() {
         return orderDetailsRepo.findAll();
     }
 
+    /**
+     * Gets the order details.
+     *
+     * @param id the id
+     * @return the order details
+     * @throws NoSuchElementException the no such element exception
+     */
     @Override
-    public Order getOrderDetails(Long id) {
-        return orderDetailsRepo.getOrderById(id).get();
-        //return order.isPresent() ? order.get() : null;
+    public Order getOrderDetails(Long id) throws NoSuchElementException {
+        Optional<Order> order = orderDetailsRepo.getOrderById(id);
+        return order.isPresent() ? order.get() : null;
     }
 
+    /**
+     * Adds the order.
+     *
+     * @param orderDto the order dto
+     * @return the order
+     * @throws ValidationException the validation exception
+     */
     @Override
     public Order addOrder(OrderDto orderDto) throws ValidationException {
         OrderHelper.validate(orderDto);
@@ -35,6 +61,14 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
         return orderDetailsRepo.save(order);
     }
 
+    /**
+     * Update order details.
+     *
+     * @param orderId the order id
+     * @param orderDto the order dto
+     * @return the order
+     * @throws ValidationException the validation exception
+     */
     @Override
     public Order updateOrderDetails(Long orderId, OrderDto orderDto) throws ValidationException {
         OrderHelper.validate(orderDto);
@@ -51,6 +85,12 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
         return orderDetailsRepo.save(orderDetails);
     }
 
+    /**
+     * Delete order.
+     *
+     * @param orderId the order id
+     * @throws ValidationException the validation exception
+     */
     @Override
     public void deleteOrder(Long orderId) throws ValidationException {
         Optional<Order> order = orderDetailsRepo.getOrderById(orderId);
@@ -60,6 +100,4 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
         }
         orderDetailsRepo.deleteById(orderId);
     }
-
-
 }
