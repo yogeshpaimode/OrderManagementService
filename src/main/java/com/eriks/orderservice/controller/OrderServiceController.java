@@ -59,12 +59,13 @@ public class OrderServiceController {
     @ApiOperation(value = "Get Orders Details")
     @GetMapping(value = "/orders/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<OrderDto> getOrderDetails(@PathVariable Long orderId) {
-        try {
-            Order orderDetails = orderDetailsService.getOrderDetails(orderId);
+        Order orderDetails = orderDetailsService.getOrderDetails(orderId);
+
+        if (null == orderDetails) {
+            return new ResponseEntity<OrderDto>(HttpStatus.NOT_FOUND);
+        } else {
             OrderDto orderDto = OrderHelper.mapToOrderDto(orderDetails);
             return new ResponseEntity<OrderDto>(orderDto, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<OrderDto>(HttpStatus.NOT_FOUND);
         }
     }
 

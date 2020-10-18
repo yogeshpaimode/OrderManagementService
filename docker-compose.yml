@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  orderservice:
+    container_name: orderservice
+    image: orderservice:0.0.1
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    networks:
+      - backend_network
+    
+networks:
+  backend_network:
