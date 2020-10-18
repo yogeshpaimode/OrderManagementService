@@ -6,8 +6,8 @@
 	<groupId>com.eriks</groupId>
 	<artifactId>orderservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>orderservice</name>
-	<description>Spring Boot project for Order service</description>
+	<name>OrderManagementService</name>
+	<description>Spring Boot project for Order Management service</description>
 	<packaging>jar</packaging>
 
 	<parent>
@@ -53,7 +53,6 @@
 		    <groupId>io.springfox</groupId>
 		    <artifactId>springfox-swagger2</artifactId>
 		    <version>2.6.1</version>
-		    <!-- <version>3.0.0</version> -->
 		    <scope>compile</scope>
 		</dependency>
 		
