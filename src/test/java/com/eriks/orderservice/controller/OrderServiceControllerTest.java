@@ -50,7 +50,7 @@ public class OrderServiceControllerTest {
      * @throws Exception the exception
      */
     @Test
-    public void testGetOrdersList() throws Exception {
+    public void Given_WhenOrderListExist_ThenFetchOrdersList() throws Exception {
 
         List<OrderDto> orderList = new ArrayList<>();
         OrderDto order1 = new OrderDto();
@@ -89,7 +89,7 @@ public class OrderServiceControllerTest {
      * @throws Exception the exception
      */
     @Test
-    public void testGetOrderDetails() throws Exception {
+    public void GivenOrderId_WhenOrderExist_ThenFetchOrderDetails() throws Exception {
 
         OrderDto order = new OrderDto();
         order.setId(1L);
