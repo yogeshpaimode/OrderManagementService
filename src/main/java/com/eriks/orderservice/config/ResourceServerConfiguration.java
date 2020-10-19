@@ -25,7 +25,6 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         http.authorizeRequests()
                 .antMatchers("/oauth/token", "/oauth/authorize**")
                 .permitAll()
-                // .antMatchers("/orders/**").authenticated();
                 .antMatchers("/api/orderservice/orders/**", "/api/orderservice/getAllOrders").access("hasRole('USER')");
     }
 

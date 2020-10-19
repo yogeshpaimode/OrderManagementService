@@ -34,7 +34,7 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(RequestHandlerSelectors.basePackage("com.eriks.orderservice"))
                 .paths(regex("/api/orderservice.*")).build()
-                .tags(new Tag(ORDER_SERVICE_TAG, "Order Service Details")).apiInfo(apiInfo());
+                .tags(new Tag(ORDER_SERVICE_TAG, "Order Management Service Details")).apiInfo(apiInfo());
     }
 
     /**
