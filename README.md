@@ -28,6 +28,7 @@ Things you need to get the project up and running on a local machine:
 * Building images and running containers - Docker
 * OAuth 2.0 - Authentication & Authorization 
 * Swagger 2
+* H2 in Memory Database
 
 ### Installing
 Clone the git repository in a local directory using git clone<repository_name> command.
